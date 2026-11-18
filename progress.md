@@ -4,7 +4,7 @@ Last updated: 2026-11-18
 
 ## Project scope
 
-A responsive, accessible single-page university website with academics, admissions, campus life, research, news, events, and contact information.
+A responsive, accessible university website delivered as both a Streamlit Python app and a static HTML/CSS/JavaScript site. It covers academics, admissions, campus life, research, news, events, and contact information.
 
 Northbridge University is a fictional institution created for this website concept. Program details, dates, statistics, names, and contact information are demonstration content rather than real-world claims.
 
@@ -27,10 +27,16 @@ Northbridge University is a fictional institution created for this website conce
 - [x] Passed automated WCAG 2.2 A/AA checks with zero violations on desktop, mobile, dialogs, privacy panel, form errors, and the open mobile menu.
 - [x] Added `README.md` with setup instructions, feature summary, project structure, customisation guidance, accessibility notes, validation, and deployment steps.
 - [x] Added `.gitignore` for local Git Credential Manager diagnostics.
+- [x] Added a Streamlit version in `app.py` with six navigable sections and a custom responsive visual system.
+- [x] Added live programme search, study-level and school filters, clearable results, programme dialogs, and news dialogs to the Streamlit app.
+- [x] Added the admissions timeline, campus gallery, research feature, events, and validated visit form to the Streamlit app.
+- [x] Added `requirements.txt`, Streamlit theme configuration, and local virtual-environment setup.
+- [x] Passed 27/27 Streamlit browser checks and a zero-violation WCAG 2.2 A/AA audit across four app states.
+- [x] Updated the README with Streamlit setup, customisation, validation, and deployment guidance.
 
 ## In progress
 
-Nothing. The planned website is complete.
+Nothing. Both the Streamlit app and static website are complete.
 
 ## Verification
 
@@ -93,3 +99,17 @@ Nothing. The planned website is complete.
 - Added a project README covering local use, features, file structure, content editing, imagery, forms, accessibility, validation, and deployment.
 - Documented the fictional nature of the university and the lack of a project licence.
 - Recorded the README and ignore-file additions in this progress log.
+
+### 2026-11-18 — Streamlit application
+
+- Installed Python 3.12 and Streamlit 1.51 in a local virtual environment.
+- Created `app.py` as a native Streamlit version with custom HTML/CSS presentation.
+- Added Discover, Study, Admissions, Campus life, Research & news, and Visit sections with button and radio navigation.
+- Rebuilt programme search, level and school filters, result counts, clear-filters behavior, programme detail dialogs, and news story dialogs.
+- Added the admissions image and deadline panel, expandable application steps and funding guidance, campus photo grid, research feature, and event list.
+- Added a visit form with name, email, interest, consent, and message fields, plus accessible error and success feedback.
+- Added Streamlit theme settings and `requirements.txt`.
+- Added Python virtual environments, bytecode, and local Streamlit secrets to `.gitignore`.
+- Verified all six sections, filtering, dialogs, the form, mobile layout, and absence of runtime errors with 27 browser checks.
+- Fixed low-contrast labels and caption opacity found by automated accessibility testing.
+- Updated the README to document both the Streamlit app and the original static site.

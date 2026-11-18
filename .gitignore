@@ -1,1 +1,5 @@
 /gcm-diagnose.log
+.venv/
+__pycache__/
+*.py[cod]
+.streamlit/secrets.toml

@@ -1,37 +1,76 @@
 # Northbridge University
 
-A responsive university website concept built with semantic HTML, modern CSS, and dependency-free JavaScript.
+A responsive university website concept available in two forms:
+
+- **Streamlit app** (`app.py`) — the Python version to run and deploy with Streamlit.
+- **Static website** (`index.html`) — the original framework-free HTML, CSS, and JavaScript version.
 
 Northbridge University is a fictional institution. All programmes, people, statistics, dates, fees, events, and contact details are demonstration content rather than real-world claims.
 
-## Highlights
+## Streamlit highlights
 
-- Editorial, photography-led responsive design for desktop, tablet, and mobile
-- Accessible navigation with a keyboard-friendly mobile menu
-- Live programme search and filtering by study level and school
+- Six navigable sections: Discover, Study, Admissions, Campus life, Research & news, and Visit
+- Live programme search with study-level and school filters
 - Programme detail dialogs with entry requirements and career pathways
 - Admissions timeline, campus gallery, research feature, news, and events
-- Modal content for news stories, research, fees, and funding
-- Visit-request form with inline validation and accessible feedback
-- Reduced-motion support, visible focus states, and WCAG 2.2 AA styling
-- No frameworks, build step, or runtime dependencies
+- News story dialogs
+- Visit-request form with inline validation and success feedback
+- Custom editorial styling built on Streamlit's native widgets
+- Responsive layout for desktop, tablet, and mobile
+- Demonstration content clearly labelled as fictional
 
-## Run locally
+## Run the Streamlit app
 
-The site is entirely static. Open `index.html` directly in a browser, or serve the project locally:
+### Prerequisites
+
+- Python 3.10 or newer
+- Internet access for remote photography and fonts
+
+### Setup
+
+```sh
+python -m venv .venv
+```
+
+Activate the environment:
+
+```powershell
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+```
+
+```sh
+# macOS or Linux
+source .venv/bin/activate
+```
+
+Install dependencies and start the app:
+
+```sh
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Open the local URL printed by Streamlit, usually <http://localhost:8501>.
+
+The app reads visual settings from `.streamlit/config.toml`; no secrets or environment variables are required.
+
+## Run the static website
+
+Open `index.html` directly in a browser, or serve it locally:
 
 ```sh
 npx serve .
 ```
 
-Then open the local URL printed by the command.
-
-For the best experience, use a current version of Chrome, Edge, Firefox, or Safari with internet access. Remote photography is loaded from Unsplash and fonts are loaded from Google Fonts; local fallback fonts are included.
+Remote photography is loaded from Unsplash and fonts from Google Fonts. Local fallback fonts are included.
 
 ## Project structure
 
 ```text
 .
+├── .streamlit/
+│   └── config.toml
 ├── assets/
 │   └── favicon.svg
 ├── css/
@@ -39,94 +78,104 @@ For the best experience, use a current version of Chrome, Edge, Firefox, or Safa
 ├── js/
 │   └── main.js
 ├── .gitignore
+├── app.py
 ├── index.html
 ├── progress.md
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
 ## Customisation
 
-### Brand and design tokens
+### Streamlit app
 
-Colours, typography, spacing, shadows, and container width are defined as CSS custom properties at the top of `css/styles.css`.
+#### Programmes
 
-```css
-:root {
-  --ink: #17332f;
-  --coral-deep: #b8432a;
-  --cream: #f3efe5;
-  --serif: "Fraunces", Georgia, serif;
-  --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+Programmes are defined in the `PROGRAMMES` list near the top of `app.py`. Each entry provides the filterable metadata, summary, and dialog content:
+
+```python
+{
+    "title": "Environmental Science",
+    "level": "Undergraduate",
+    "school": "Science & Engineering",
+    "award": "BSc · 3 years",
+    "summary": "Read the planet. Design a more resilient future.",
+    "description": "...",
+    "careers": "...",
+    "requirements": "...",
+    "number": "03",
 }
 ```
 
-### Programmes
+Add an entry to `PROGRAMMES` and it appears in the directory automatically. Keep `level` values consistent with the filter options.
 
-Programme cards live in `index.html`. Each card carries the filter and dialog data as attributes:
+#### News stories
 
-```html
-<article
-  class="programme-card"
-  data-level="undergraduate"
-  data-school="School of Science &amp; Engineering"
-  data-title="Environmental Science BSc"
-  data-type="BSc · 3 years"
-  data-description="..."
-  data-careers="..."
-  data-requirements="...">
-```
+Stories live in the `STORIES` list in `app.py`. Each dialog reads its content from the selected story.
 
-Update the relative filter values consistently when adding or removing a programme.
+#### Brand, colours, and typography
 
-### News stories
+The interface styles are in the CSS block passed to `st.markdown` in `app.py`. Theme values are also set in `.streamlit/config.toml`. Update both when changing the primary colours, font-family stack, or page background.
 
-News dialog content is stored in the `stories` object in `js/main.js`. Each trigger references a matching key through `data-story-key`.
+The design uses Fraunces for display headings and Manrope for body text, with local fallback fonts.
 
-### Imagery
+#### Visit form
 
-Images use Unsplash URLs with size and crop parameters. Replace them with locally hosted, appropriately licensed photography before production use. Update the hero preload and Open Graph metadata in `index.html` when changing the main image.
+The form validates name, email, interest, and consent, then displays demonstration success feedback. It does not transmit or persist data. Connect the `submitted` branch in `render_visit()` to a CRM, email service, or database before launch, and update the privacy wording.
 
-### Forms
+### Static website
 
-The visit form currently demonstrates validation and success feedback only. It does not transmit or store data. Connect the `submit` handler in `js/main.js` to a form service or university CRM before launch, and update the privacy disclosure accordingly.
+- Brand and design tokens: CSS custom properties at the top of `css/styles.css`.
+- Programmes: programme cards in `index.html`, with filter and dialog data stored as attributes.
+- News stories: the `stories` object in `js/main.js`.
+- Images: replace remote Unsplash URLs with approved, locally hosted photography.
+- Forms: the static form only simulates submission; connect it to a backend service before launch.
 
 ## Accessibility
 
-The site includes:
+Both versions include semantic headings, labelled controls, visible focus styles, keyboard-operable dialogs, and responsive layouts. The static version adds a skip link and screen-reader-announced programme results.
 
-- A skip link and semantic landmarks
-- Keyboard-operable menus, dialogs, filters, and form controls
-- Visible focus styles and `Escape` handling for overlays
-- Meaningful alternative text and labelled form fields
-- Screen-reader result announcements for programme filtering
-- Respect for `prefers-reduced-motion`
-
-Automated WCAG 2.2 A/AA testing reported zero violations across the homepage, programme dialog, privacy panel, form-error state, mobile layout, and open mobile menu. Automated checks do not replace testing with assistive technology users.
+Automated testing of the Streamlit app reported zero WCAG 2.2 A/AA violations across Discover desktop, Study, the programme dialog, and mobile Discover. Automated checks do not replace testing with assistive-technology users.
 
 ## Validation performed
+
+Streamlit app:
+
+- Python syntax compiled successfully
+- 27 browser checks covering all six sections, programme filtering, dialogs, form validation, responsive overflow, and runtime errors
+- Automated accessibility audit with axe-core against WCAG 2.2 A/AA
+
+Static website:
 
 - `node --check js/main.js`
 - 34 browser checks covering navigation, filtering, dialogs, form validation, and horizontal overflow
 - Automated accessibility audit with axe-core against WCAG 2.2 A/AA
-- Internal anchor and duplicate-ID checks
-- Remote image availability checks
+- Internal anchor, duplicate-ID, remote-image, and link checks
 
 ## Deployment
 
-This is a static site and can be hosted on GitHub Pages, Netlify, Cloudflare Pages, or any static web host.
+### Streamlit Community Cloud
 
-### GitHub Pages
+1. Push the repository to GitHub.
+2. Sign in at <https://share.streamlit.io>.
+3. Choose **New app**, select the repository and branch, and set the main file to `app.py`.
+4. Deploy. Streamlit installs dependencies from `requirements.txt`.
 
-1. Open the repository's **Settings → Pages**.
-2. Under **Build and deployment**, choose **Deploy from a branch**.
-3. Select the `main` branch and the repository root, then save.
-4. GitHub will publish the site at the Pages URL shown in that panel.
+No secrets are required for the current demonstration app.
 
-All asset paths are relative, so the site works from a repository subpath without configuration.
+### Other hosts
+
+The Streamlit app can run on any Python host that supports long-lived web processes, such as a container platform or virtual machine:
+
+```sh
+streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+```
+
+The static version can be hosted on GitHub Pages, Netlify, Cloudflare Pages, or any static web host. All asset paths are relative, so it works from a repository subpath.
 
 ## Project status
 
-See [progress.md](progress.md) for the implemented features, change history, verification results, and suggested production next steps.
+See [progress.md](progress.md) for implemented features, change history, verification results, and suggested production next steps.
 
 ## Licence
 
