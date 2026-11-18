@@ -25,6 +25,8 @@ Northbridge University is a fictional institution created for this website conce
 - [x] Replaced the one unavailable image and confirmed all remote photography returns HTTP 200.
 - [x] Passed 34/34 browser checks covering navigation, filtering, dialogs, form validation, and horizontal overflow.
 - [x] Passed automated WCAG 2.2 A/AA checks with zero violations on desktop, mobile, dialogs, privacy panel, form errors, and the open mobile menu.
+- [x] Added `README.md` with setup instructions, feature summary, project structure, customisation guidance, accessibility notes, validation, and deployment steps.
+- [x] Added `.gitignore` for local Git Credential Manager diagnostics.
 
 ## In progress
 
@@ -85,3 +87,9 @@ Nothing. The planned website is complete.
 - Standardised contact and fee content to UK currency and phone formatting.
 - Replaced one unavailable external image and confirmed every remaining remote image loads.
 - Recorded final browser, link, image, and WCAG validation results.
+
+### 2026-11-18 — Documentation
+
+- Added a project README covering local use, features, file structure, content editing, imagery, forms, accessibility, validation, and deployment.
+- Documented the fictional nature of the university and the lack of a project licence.
+- Recorded the README and ignore-file additions in this progress log.
